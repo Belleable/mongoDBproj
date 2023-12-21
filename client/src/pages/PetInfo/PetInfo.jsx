@@ -10,8 +10,8 @@ const PetInfo = () => {
     const navigate = useNavigate();
 
     const {petid} = useParams();
-        function filterTable() {
-        /*const dropdown = document.querySelector("#status");
+    function filterTable() {
+        const dropdown = document.querySelector("#status");
         let selectValue = dropdown.value;
         const table = document.querySelector("#vaccine-table");
         let rows = table.getElementsByTagName("tr");
@@ -26,7 +26,7 @@ const PetInfo = () => {
             else {
                 row.style.display = "none";
             }
-        }*/
+        }
     }
 
 
@@ -34,13 +34,12 @@ const PetInfo = () => {
     const [pets, setPet] = useState([]);
     const [vaccines, setVaccine] = useState([]);
 
-
+    
     useEffect(() => {
         // Fetch data from the first path
         const fetchPet = async () => {
             try {
                 const response = await axios.get(`http://localhost:3009/petprofile/${petid}`);
-                
                 setPet(response.data);
             } catch (error) {
                 console.error('Error fetching pet data:', error);
@@ -50,7 +49,7 @@ const PetInfo = () => {
         // Fetch data from the second path
         const fetchVaccine = async () => {
             try {
-                const response = await axios.get(`http://localhost:3009/petprofile/27/vaccine`);
+                const response = await axios.get(`http://localhost:3009/petprofile/${petid}/vaccine`);
                 setVaccine(response.data);
             } catch (error) {
                 console.error('Error fetching vaccine data:', error);
@@ -62,6 +61,21 @@ const PetInfo = () => {
         fetchVaccine();
     }, []);
 
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
+        try {
+            const deletePet = await axios.delete(`http://localhost:3009/petprofile/${petid}/delete`)
+            if (deletePet.data.status === 'success'){
+                alert(deletePet.data.success);
+                navigate('/home')
+            } else {
+                alert(deletePet.data.error);
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <div className="petInfo">
@@ -74,67 +88,87 @@ const PetInfo = () => {
                 <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
                 <script src="https://kit.fontawesome.com/957263c2c4.js" crossorigin="anonymous"></script>
             </Helmet>
-            
+            <header>
+                <h1>Pet Info</h1>
+            </header>
             <body>
-                    <div className="Tnfo" >
-                        <img src='' />
-                        <div class="text">
-                            <h1>name</h1>
-                            <table>
-                                <tr>
-                                    <th>Type :</th>
-                                    <td id="Type">dog</td>
-                                </tr>
-                                <tr>
-                                    <th>DoB :</th>
-                                    <td id="DoB">now</td>
-                                </tr>
-                                <tr>
-                                    <th>Age :</th>
-                                    <td id="Age">12</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <a href={`/petprofile/edit`}><i class="fa-solid fa-pen-to-square"></i></a>
+                    
+
+                <div className="Info" key={pets._id}>
+                <img src={`data:image/png;base64,${pets.petPfp}`} />
+                    <div class="text">
+                        <h1>{pets.petName}</h1>
+                        <table>
+                            <tr>
+                                <th>Type :</th>
+                                <td id="Type">{pets.petType}</td>
+                            </tr>
+                            <tr>
+                                <th>Birthday: </th>
+                                <td id="DoB">Birthday: {pets.petDoB}</td>
+                            </tr>
+                            <tr>
+                                <th>Age :</th>
+                                <td id="Age">Age: {pets.weeks} weeks | {pets.months} months | {pets.years} years</td>
+                            </tr>
+                        </table>
                     </div>
+                    <a href={`/petprofile/${pets._id}/edit`}><i class="fa-solid fa-pen-to-square"></i></a>
+                </div>
 
                 <div class="vaccinelist">
 
                     <div class="HeaderVacc">
                         <h2>Vaccination</h2>
-                        <form action="">
-                            <div class="select" >
-                                <select id="status" >
-                                    <option value="all">All</option>
-                                    <option value="info">info</option>
-                                    <option value="success">success</option>
-                                    <option value="danger">danger</option>
-                                </select>
+                        <form action="" onSubmit={handleDelete}>
+                            <div>
+                                <button className='delete' type="submit" onClick={handleDelete}>Delete This Pet</button>
                             </div>
                         </form>
                     </div>
-                        <table id="vaccine-table" >
+                        
+                    {vaccines.map(vaccine => (
+                        <table id="vaccine-table" key={vaccine.vacID}>
                             <tr>
                                 <th>Vaccine</th>
+<th>Vaccine Name</th>
                                 <th>Status</th>
                             </tr>
-                            <tr className="Completed">
-                                <td>rthjk</td>
-                                <td>disease</td>
-                                <td> Completeed </td>
+                            {(() => {
+                                if (vaccine.status === 'success') {
+                                    return (
+                                        <tr key={vaccine.vacID} className="Completed">
+                                <td>{vaccine.vacName}</td>
+                                <td>{vaccine.disease}</td>
+                                <td> Completed </td>
+<td>{vaccine.appdate}</td>
                             </tr>
-                            <tr className="Incomplete">
-                                <td>?</td>
-                                <td>disease</td>
+                            );
+                                } else if (vaccine.status === 'info') {
+                                    return (
+                                        <tr key={vaccine.vacID} className="Incomplete">
+                                <td>{vaccine.vacName}</td>
+                                <td>{vaccine.disease}</td>
                                 <td> Incomplete </td>
-                            </tr>
-                            <tr className="ongoing">
-                                <td>dfguiop</td>
-                                <td>sfsf</td>
-                                <td> Next </td>
-                            </tr>
-                        </table>
+<td>{vaccine.appdate}</td>
 
+                            </tr>
+                            );
+                                } else if (vaccine.status === 'danger') {
+                                    return (
+                                        <tr key={vaccine.vacID} className="ongoing">
+                                <td>{vaccine.vacName}</td>
+                                <td>{vaccine.disease}</td>
+                                <td> Next </td>
+                                <td>{vaccine.appdate}</td>
+                            </tr>
+);
+                                } else {
+                                    return null; // Handle other cases or provide a default
+                                }
+                            })()}
+                        </table>
+))}
 
                     <a href={`/petprofile/${pets.petID}/record`}><i class="fa-solid fa-book-medical fa-4x"></i></a>
                 </div>
