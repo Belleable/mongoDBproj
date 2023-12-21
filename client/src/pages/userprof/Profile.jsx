@@ -22,11 +22,18 @@ const Profile = () => {
         fetchUserProfile();
     }, []);
 
-    const handleLogout = async () => {
-        axios.get('http://localhost:3009/logout')
-        .then(res => {
-            window.location.reload(true);
-        })
+    const handleLogout = async (e) => {
+        e.preventDefault();
+
+        try {
+            const logout = await axios.get('http://localhost:3009/logout');
+            if (logout.data.status === "success") {
+                navigate('/login')
+            }
+        } catch (error) {
+            console.error(error)
+        }
+        
     }
 
     const handleEdit = async () => {
@@ -47,9 +54,7 @@ const Profile = () => {
                 <script src="https://kit.fontawesome.com/957263c2c4.js" crossorigin="anonymous"></script>
             </Helmet>
             <body>
-                {profile.map(user => (
-
-                    <div className="profile-container" key={user.id}>
+                <div className="profile-container" key={profile._id}>
                     <div class="mid-container">
                         <div class="profile-picture-container">
                             <h2>User Profile</h2>
@@ -59,31 +64,29 @@ const Profile = () => {
                     <table>
                         <tr>
                             <th>Username:</th>
-                            <td id="username" name="username">{user.username}</td>
+                            <td id="username" name="username">{profile.username}</td>
                         </tr>
                         <tr>
                             <th>First Name:</th>
-                            <td id="fname" name="fname">{user.fname}</td>
+                            <td id="fname" name="fname">{profile.fname}</td>
                         </tr>
                         <tr>
                             <th>Last Name:</th>
-                            <td id="lname" name="lname">{user.lname}</td>
+                            <td id="lname" name="lname">{profile.lname}</td>
                         </tr>
                         <tr>
                             <th>Email:</th>
-                            <td id="email" name="email">{user.email}</td>
+                            <td id="email" name="email">{profile.email}</td>
                         </tr>
                         <tr>
                             <th>Phone Number:</th>
-                            <td id="phone" name="phone">{user.phone}</td>
+                            <td id="phone" name="phone">{profile.phone}</td>
                         </tr>
                     </table>
                     <button id="logout" role="button" onClick={handleLogout}>Log out</button>
                     <button id="logout" role="button" onClick={handleEdit}>Edit</button>
-                    
                 </div>
-
-                ))}
+                    
                 
 
                 <nav class="navigate">
@@ -92,7 +95,6 @@ const Profile = () => {
                     <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
                 </nav>
             </body>
-
         </div>
     )
 }

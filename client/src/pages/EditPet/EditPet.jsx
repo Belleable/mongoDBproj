@@ -72,7 +72,6 @@ const EditPet = () => {
         e.preventDefault();
 
         try {
-            
             const resEdit = await axios.put(`http://localhost:3009/petprofile/${petid}/edit`, pet); // Replace with your API endpoint
             if (resEdit.data.status === "success") {
                 alert(resEdit.data.success);
