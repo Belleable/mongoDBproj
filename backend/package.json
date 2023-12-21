@@ -1,0 +1,45 @@
+{
+  "name": "appvaccine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "dev": "nodemon ./bin/www"
+  },
+  "proxy": "http://localhost:3002",
+  "start": "node server",
+  "client": "npm start --prefix client",
+  "dev": "concurrently \"npm run start\" \"npm run client\"",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.3",
+    "http-error": "^0.0.6",
+    "json": "^11.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.29.4",
+    "multer": "^1.4.4",
+    "mysql2": "^3.6.5",
+    "nodemailer": "^6.9.7",
+    "passport": "^0.6.0",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "install": "^0.13.0",
+    "nodemon": "^3.0.1",
+    "npm": "^10.2.1"
+  }
+}
