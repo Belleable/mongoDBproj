@@ -1,7 +1,17 @@
 import { Pet } from '../models/pet.js';  // Assuming you have a Pet model
 
 export const petEdit = async (req, res, next) => {
-    const { petName, petType, bd, petPfp, petGender } = req.body;
+    for (let key in req.body) {
+        if (key === 'petPfp') {
+            const binaryData = Buffer.from(req.body[key].dataUrl.split(',')[1], 'base64');
+            const picData = {
+                data: binaryData,
+                contentType: String
+            }
+
+            req.body[key] = picData;
+        }
+    }
 
     try {
         const petId = req.params.petid;
@@ -10,16 +20,10 @@ export const petEdit = async (req, res, next) => {
         const updatedPet = await Pet.findOneAndUpdate(
             { _id: petId },
             {
-                $set: {
-                    petName,
-                    petType,
-                    petDoB: bd,
-                    petPfp,
-                    petGender,
-                },
+                $set: req.body,
             },
             { new: true } // To return the updated document
-        );
+        );  
 
         if (updatedPet) {
             console.log("Edit pet information success");

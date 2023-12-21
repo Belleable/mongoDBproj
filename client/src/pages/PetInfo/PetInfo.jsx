@@ -91,7 +91,7 @@ const PetInfo = () => {
             <body>
                     
 
-                <div className="Info" key={pets.petID}>
+                <div className="Info" key={pets._id}>
                 <img src={`data:image/png;base64,${pets.petPfp}`} />
                     <div class="text">
                         <h1>{pets.petName}</h1>
@@ -110,7 +110,7 @@ const PetInfo = () => {
                             </tr>
                         </table>
                     </div>
-                    <a href={`/petprofile/${pets.petID}/edit`}><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href={`/petprofile/${pets._id}/edit`}><i class="fa-solid fa-pen-to-square"></i></a>
                 </div>
 
                 <div class="vaccinelist">
@@ -119,7 +119,7 @@ const PetInfo = () => {
                         <h2>Vaccination</h2>
                         <form action="">
                             <div>
-                                <button className='delete' onClick={() => handleDelete(pets.petID)}>Delete This Pet</button>
+                                <button className='delete' onClick={() => handleDelete(pets._id)}>Delete This Pet</button>
                             </div>
                         </form>
                     </div>

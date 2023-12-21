@@ -41,13 +41,16 @@ function calculateYears(petDoB) {
 }
 
 function calculateMonths(petDoB) {
-    return Math.floor((Date.now() - new Date(petDoB)) / (30.44 * 24 * 60 * 60 * 1000));
+    const day = Math.floor((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000))
+    return Math.floor((day%365.25)/30.44);
 }
 
 function calculateWeeks(petDoB) {
-    return Math.floor((Date.now() - new Date(petDoB)) / (7 * 24 * 60 * 60 * 1000));
+    const day = Math.floor((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000))
+    return Math.floor((day%365.25%30.44)/7);
 }
 
 function calculateDays(petDoB) {
-    return Math.floor((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000));
+    const day = Math.floor((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000))
+    return Math.floor(day%365.25%30.44%7);
 }

@@ -36,17 +36,20 @@ export const petprofile = async (req, res, next) => {
 
 // Helper functions to calculate age
 function calculateYears(petDoB) {
-    return Math.ceil((Date.now() - new Date(petDoB)) / (365.25 * 24 * 60 * 60 * 1000));
+    return Math.floor((Date.now() - new Date(petDoB)) / (365.25 * 24 * 60 * 60 * 1000));
 }
 
 function calculateMonths(petDoB) {
-    return Math.ceil((Date.now() - new Date(petDoB)) / (30.44 * 24 * 60 * 60 * 1000));
+    const day = Math.floor((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000))
+    return Math.floor((day%365.25)/30.44);
 }
 
 function calculateWeeks(petDoB) {
-    return Math.ceil((Date.now() - new Date(petDoB)) / (7 * 24 * 60 * 60 * 1000));
+    const day = Math.floor((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000))
+    return Math.floor((day%365.25%30.44)/7);
 }
 
 function calculateDays(petDoB) {
-    return Math.ceil((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000));
+    const day = Math.floor((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000))
+    return Math.floor(day%365.25%30.44%7);
 }
