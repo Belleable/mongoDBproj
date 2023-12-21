@@ -58,7 +58,6 @@ const Profile = () => {
                     <div class="mid-container">
                         <div class="profile-picture-container">
                             <h2>User Profile</h2>
-                                
                         </div>
                     </div>
                     <table>
