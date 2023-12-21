@@ -28,11 +28,6 @@ function formatDate(dateString) {
     return `${year}-${month}-${day}`;
 }
 
-
-router.get("/petprofile/:petid/delete", petDelete,(req, res) => {
-    res.redirect('/home');
-})
-
 var imgconfig = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, "client/uploads/");
@@ -90,7 +85,7 @@ router.get("/home", allPet, (req, res, next) => {
 
 } )*/
 
-router.get("/petprofile/:petid", petprofile, (req, res) => {
+router.get("/petprofile/:petid", petprofile, (req, res, next) => {
     let data = res.petinfo;
     return res.json(data);
 })
@@ -107,8 +102,10 @@ router.get("/userprofile", userprofile, (req, res) => {
     res.json(data);
 })
 
-router.post("/register", register)
+router.post("/register", register);
 
-router.put("/petprofile/:petid/edit", upload.single("petPfp"), petEdit)
+router.delete("/petprofile/:petid/delete", petDelete);
+
+router.put("/petprofile/:petid/edit", upload.single("petPfp"), petEdit);
 
 router.get("/logout", logout);
