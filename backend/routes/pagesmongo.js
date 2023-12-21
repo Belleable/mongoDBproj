@@ -18,6 +18,7 @@ import { petDelete } from '../mongodb/controllers/petDelete.js';
 import { calendar } from '../mongodb/controllers/calendar.js';
 
 import multer from 'multer';
+// import { addrecord, allprocedure } from '../mongodb/controllers/addrecord.js';
 
 
 function formatDate(dateString) {
@@ -91,7 +92,7 @@ router.get("/petprofile/:petid", petprofile, (req, res, next) => {
     return res.json(data);
 })
 
-router.get("/petprofile/:petid/petvaccine", petVaccine, (req, res, next) => {
+router.get("/petprofile/:petid/vaccine", petVaccine, (req, res, next) => {
     const data = res.core_vac;
     return res.json(data);
 })
@@ -116,3 +117,10 @@ router.get("/calendar", allPet, (req, res, next) => {
     const data = res.calendar;
     return res.json(data);
 });
+
+// router.get("petprofile/:petid/addrecord", allprocedure, (req, res) => {
+//     let data = res.allprocedure;
+//     return res.json(data);
+// })
+
+// router.post("petprofile/:petid/addrecord", addrecord)

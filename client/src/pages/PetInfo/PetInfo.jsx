@@ -93,7 +93,6 @@ const PetInfo = () => {
             </header>
             <body>
                     
-
                 <div className="Info" key={pets._id}>
                 <img src={`data:image/png;base64,${pets.petPfp}`} />
                     <div class="text">
@@ -131,44 +130,39 @@ const PetInfo = () => {
                         <table id="vaccine-table" key={vaccine.vacID}>
                             <tr>
                                 <th>Vaccine</th>
-<th>Vaccine Name</th>
                                 <th>Status</th>
                             </tr>
                             {(() => {
                                 if (vaccine.status === 'success') {
                                     return (
                                         <tr key={vaccine.vacID} className="Completed">
-                                <td>{vaccine.vacName}</td>
-                                <td>{vaccine.disease}</td>
-                                <td> Completed </td>
-<td>{vaccine.appdate}</td>
-                            </tr>
-                            );
+                                            <td>{vaccine.vacName}</td>
+                                            {/*<td>{vaccine.disease}</td>*/}
+                                            <td> Completeed </td>
+                                        </tr>
+                                    );
                                 } else if (vaccine.status === 'info') {
                                     return (
                                         <tr key={vaccine.vacID} className="Incomplete">
-                                <td>{vaccine.vacName}</td>
-                                <td>{vaccine.disease}</td>
-                                <td> Incomplete </td>
-<td>{vaccine.appdate}</td>
-
-                            </tr>
-                            );
+                                            <td>{vaccine.vacName}</td>
+                                            {/*<td>{vaccine.disease}</td>*/}
+                                            <td> Incomplete </td>
+                                        </tr>
+                                    );
                                 } else if (vaccine.status === 'danger') {
                                     return (
                                         <tr key={vaccine.vacID} className="ongoing">
-                                <td>{vaccine.vacName}</td>
-                                <td>{vaccine.disease}</td>
-                                <td> Next </td>
-                                <td>{vaccine.appdate}</td>
-                            </tr>
-);
+                                            <td>{vaccine.vacName}</td>
+                                            {/*<td>{vaccine.disease}</td>*/}
+                                            <td> Next </td>
+                                        </tr>
+                                    );
                                 } else {
                                     return null; // Handle other cases or provide a default
                                 }
                             })()}
                         </table>
-))}
+                    ))}
 
                     <a href={`/petprofile/${pets.petID}/record`}><i class="fa-solid fa-book-medical fa-4x"></i></a>
                 </div>

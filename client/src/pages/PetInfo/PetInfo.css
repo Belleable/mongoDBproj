@@ -122,6 +122,35 @@
     color: rgb(88, 75, 65);
 }
 
+.petInfo .delete {
+    margin-right: 10px;
+    background-color: #ee6850;
+    border: 2px solid #ffe8ae;
+    border-radius: 30px;
+    box-shadow: #ffe8ae 4px 4px 0 0;
+    color: #fefcf7;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.petInfo .delete:hover {
+    background-color: #140202;
+}
+
+.petInfo .delete:active {
+    box-shadow: #ffe8ae 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
 .petInfo .vaccinelist table {
     width: 100%;
     margin-top: 10px;

@@ -1,8 +1,9 @@
-.Today {
+body {
     margin: 0 0;
     padding: 0 0;
     box-sizing: border-box;
     background-color: #f4f4f4;
+    font-family: 'Catamaran';
 }
 
 .Today header {
@@ -19,8 +20,26 @@
     align-items: center;
 }
 
+.filter {
+    position: fixed;
+    z-index: 2000;
+    top: 90px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.filter input {
+    margin: 10px;
+    border-radius: 30px;
+    border: solid rgb(185, 185, 185);
+    padding: 10px 20px;
+    font-family: 'Catamaran';
+}
+
+
 .Today main {
-    padding-top: 90px;
+    padding-top: 150px;
     padding-bottom: 500px;
     margin: 0 0;
     background-color: #f4f4f4;
@@ -113,7 +132,7 @@
 }
 
 .Today .changing-box {
-    margin:20px 50px;
+    margin: 20px 50px;
     padding: 0;
     margin-bottom: 0;
 }
@@ -181,16 +200,16 @@
 
 @media screen and (min-width: 680px) {
     .Today .button {
-            font-size: 15px;
-            padding: 10px 25px;
-            border-radius: 40px;
-            cursor: pointer;
-            max-width: 200px;
-        }
+        font-size: 15px;
+        padding: 10px 25px;
+        border-radius: 40px;
+        cursor: pointer;
+        max-width: 200px;
+    }
 
     .Today .container {
         margin-bottom: 20px;
-        margin-left: 120px;
+        margin-left: 90px;
         margin-right: 20px;
     }
 
@@ -219,7 +238,7 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        width: 60px;
+        width: 20px;
         z-index: 4;
     }
 
@@ -232,6 +251,6 @@
     }
 
     .Today .navigate a {
-        padding: 15px;
+        padding: 13px;
     }
 }

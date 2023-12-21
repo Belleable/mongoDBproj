@@ -17,7 +17,7 @@ import mongoose from "mongoose";
 
 dotenv.config();
 
-const dbURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.nwibvqh.mongodb.net/vaccine`
+const dbURI = `mongodb+srv://artib:1234@webdb.89olebj.mongodb.net/`
 
 mongoose.connect(dbURI, {});
 

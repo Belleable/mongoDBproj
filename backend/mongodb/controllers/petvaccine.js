@@ -23,7 +23,7 @@ export const petVaccine = async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: Procedure.collection.name,
+                    from: Procedural.collection.name,
                     localField: 'appointments.procID',
                     foreignField: 'procID',
                     as: 'procedure',

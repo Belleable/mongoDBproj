@@ -15,6 +15,7 @@ import Profile from "./pages/userprof/Profile";
 import Addpet from "./pages/Addpet/Addpet";
 import Records from "./pages/Record/Record";
 import EditUser from "./pages/EditUser/EditUser";
+import Addrecord from "./pages/Addrecord/Addrecord";    
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/userprofile" element={<Profile />} />
                 <Route path="/appointment/:appid" element={<Calendar />} />
                 <Route path="/records" element={<Records />} />
+                <Route path="/petprofile/:petid/addrecord" element={<Addrecord />} />
                 <Route path="/userprofile/edit" element={<EditUser />} />
         </Routes>
     </BrowserRouter>

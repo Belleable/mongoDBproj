@@ -82,18 +82,16 @@ const Profile = () => {
                             <td id="phone" name="phone">{profile.phone}</td>
                         </tr>
                     </table>
-                    <button id="logout" role="button" onClick={handleLogout}>Log out</button>
-                    <button id="logout" role="button" onClick={handleEdit}>Edit</button>
+                    <div class='button'>
+                        <button id="logout" role="button" onClick={handleLogout}>Log out</button>
+                        <button id="edit" role="button" onClick={handleEdit}>Edit</button></div>
                 </div>
-                    
-                
-
-                <nav class="navigate">
-                    <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
-                    <Link to="/home"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
-                    <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
-                </nav>
             </body>
+            <nav class="navigate">
+                <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
+                <Link to="/home"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
+                <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
+            </nav>
         </div>
     )
 }
