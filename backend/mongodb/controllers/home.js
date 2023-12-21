@@ -51,11 +51,3 @@ function calculateWeeks(petDoB) {
 function calculateDays(petDoB) {
     return Math.floor((Date.now() - new Date(petDoB)) / (24 * 60 * 60 * 1000));
 }
-
-// Helper function to encode petPfp as base64
-function encodePetPfp(petPfp) {
-    if (petPfp && petPfp instanceof Buffer) {
-        return `data:image/jpeg;base64,${petPfp.toString('base64')}`;
-    }
-    return null; // Or a default image URL
-}
