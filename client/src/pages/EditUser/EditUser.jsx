@@ -21,7 +21,7 @@ const EditUser = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3009/userprofile`); // Replace with your API endpoint
-                setUser(response.data[0]);
+                setUser(response.data);
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -82,7 +82,7 @@ const EditUser = () => {
             </Helmet>
             <body>
                 <div class="back">
-                    <Link to='/profile'><a href="#"><i class="fa-solid fa-chevron-left fa-3x"></i></a></Link>
+                    <Link to='/userprofile'><a href="#"><i class="fa-solid fa-chevron-left fa-3x"></i></a></Link>
                 </div>
 
                 <main>

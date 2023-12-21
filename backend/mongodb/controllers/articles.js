@@ -7,11 +7,12 @@ import mongoose from "mongoose";
 export const article = async (req, res, next) => {
     const userRegisteredCookie = req.cookies.userRegistered;
     const decodedToken = jwt.decode(userRegisteredCookie, process.env.JWT_SECRET);
+    console.log(decodedToken)
 
     try {
         const result = await User.aggregate([
             {
-                $match: { _id: mongoose.Types.ObjectId(decodedToken.id) }
+                $match: { _id: new mongoose.Types.ObjectId(decodedToken.id) }
             },
             {
                 $lookup: {
