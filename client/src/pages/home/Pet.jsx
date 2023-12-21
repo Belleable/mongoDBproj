@@ -28,6 +28,7 @@ const Pet = () => {
         const fetchAllPets = async () => {
             try {
                 const respone = await axios.get("http://localhost:3009/home");
+                console.log(respone.data)
                 setPet(respone.data);
             } catch (err) {
                 console.log(err);
@@ -36,7 +37,7 @@ const Pet = () => {
         fetchAllPets();
     }, []);
 
-
+    // console.log(pets)
 
 
     return (
@@ -61,27 +62,15 @@ const Pet = () => {
             <main>
                 <div class="Pet">
                     {pets.map(pet => (
-                        <figure className='pet' key={pet.petID}>
-                            <Link to={`/petprofile/${pet.petID}`} style={{ textDecoration: 'none' }}>
-
-                                {pet.id && <img src={pet.petPfpUrl} />}
-
-                                <figcaption>{pet.petName}</figcaption>
+                        <figure className='pet' key={pet._id}>
+                            <Link to={`/petprofile/${pet._id}`} style={{ textDecoration: 'none' }}>
+                            <img src={`data:image/png;base64,${pet.petPfp}`} />
+                            <figcaption>{pet.petName}</figcaption>
                             </Link>
                         </figure>
                     ))}
 
 
-                    <figure>
-                        <Link to='/petregister'><img
-                            src="https://hips.hearstapps.com/hmg-prod/images/chow-chow-portrait-royalty-free-image-1652926953.jpg?crop=0.44455xw:1xh;center,top&resize=980:*" />
-                            <figcaption>Aert</figcaption></Link>
-                    </figure>
-                    <figure>
-                        <img
-                            src="https://hips.hearstapps.com/hmg-prod/images/chow-chow-portrait-royalty-free-image-1652926953.jpg?crop=0.44455xw:1xh;center,top&resize=980:*" />
-                        <figcaption>BBBB</figcaption>
-                    </figure>
                     <div class="addpet">
                         <a href="#"><Link to="/petregister"><i class="fa-solid fa-plus fa-4x"></i></Link></a>
                     </div>
@@ -90,7 +79,7 @@ const Pet = () => {
 
             <nav className="navigate">
                 <Link to="/articles"><a href="#"><i class="fa-solid fa-book-open fa-2x"></i></a></Link>
-                <Link to="/home"><a href="#"><i class="fa-solid fa-house fa-2x homeicon"></i></a></Link>
+                <Link to="/home"><a href="#"><i class="fa-solid fa-house fa-2x"></i></a></Link>
                 <Link to="/calendar"><a href="#"><i class="fa-regular fa-calendar-days fa-2x"></i></a></Link>
             </nav>
 

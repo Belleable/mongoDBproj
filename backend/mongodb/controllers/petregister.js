@@ -2,6 +2,7 @@ import { Pet } from '../models/pet.js';
 import { Procedural } from '../models/procedural.js';
 import { Appointment } from '../models/appointment.js';
 import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose';
 const saltRounds = 10;
 
 export const petregister = async (req, res) => {
@@ -18,8 +19,13 @@ export const petregister = async (req, res) => {
             });
         } else {
 
-            const existingPet = await Pet.findOne({ id: decodedToken.id, petName });
+            const existingPet = await Pet.findOne({ ownerID: decodedToken.id, petName });
+            console.log(petPfp)
             const binaryData = Buffer.from(petPfp.dataUrl.split(',')[1], 'base64'); //how
+            const picData = {
+                data: binaryData,
+                contentType: String
+            }
 
             if (existingPet) {
                 return res.json({ status: "error", error: `${petName} has already been registered.` });
@@ -29,9 +35,9 @@ export const petregister = async (req, res) => {
                 petName,
                 petType,
                 petDoB,
-                binaryData,
+                petPfp: picData,
                 petGender,
-                id: decodedToken.id,
+                ownerID: new mongoose.Types.ObjectId(decodedToken.id),
             });
 
             await newPet.save();
