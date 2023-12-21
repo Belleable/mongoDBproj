@@ -15,6 +15,7 @@ import { logout } from '../mongodb/controllers/logout.js';
 import { loggedIn } from '../mongodb/controllers/loggedin.js';
 import { petEdit } from '../mongodb/controllers/petEdit.js';
 import { petDelete } from '../mongodb/controllers/petDelete.js';
+import { calendar } from '../mongodb/controllers/calendar.js';
 
 import multer from 'multer';
 
@@ -109,3 +110,9 @@ router.delete("/petprofile/:petid/delete", petDelete);
 router.put("/petprofile/:petid/edit", upload.single("petPfp"), petEdit);
 
 router.get("/logout", logout);
+
+
+router.get("/calendar", allPet, (req, res, next) => {
+    const data = res.calendar;
+    return res.json(data);
+});
