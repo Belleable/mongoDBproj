@@ -90,7 +90,7 @@ router.get("/home", allPet, (req, res, next) => {
 
 } )*/
 
-router.get("/petprofile/:petid", petprofile, (req, res) => {
+router.get("/petprofile/:petid", petprofile, (req, res, next) => {
     let data = res.petinfo;
     return res.json(data);
 })

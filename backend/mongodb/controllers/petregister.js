@@ -21,7 +21,7 @@ export const petregister = async (req, res) => {
 
             const existingPet = await Pet.findOne({ ownerID: decodedToken.id, petName });
             console.log(petPfp)
-            const binaryData = Buffer.from(petPfp.dataUrl.split(',')[1], 'base64'); //how
+            const binaryData = Buffer.from(petPfp.dataUrl.split(',')[1], 'base64');
             const picData = {
                 data: binaryData,
                 contentType: String
