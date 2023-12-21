@@ -6,24 +6,25 @@ export const allPet = async (req, res, next) => {
     const decodedToken = jwt.decode(userRegisteredCookie, process.env.JWT_SECRET);
 
     try {
-        const petData = await Pet.find({ id: decodedToken.id })
-            .select('petPfp petName petType petDoB petGender') // Include only relevant fields
+        const petData = await Pet.find({ ownerID: decodedToken.id })
+            .select('_id petPfp petName petType petDoB petGender') // Include only relevant fields
             .lean(); // Convert Mongoose documents to plain JavaScript objects
-        console.log(petData[0])
         if (petData.length === 0) {
-            console.log("Can't find this user");
+            console.log("Can't find this user pet");
             return res.status(404).send("Can't find this user");
         } else {
-            const profile_image = petData.profile_image ? petData.petPfp.data.toString('base64') : null;
             res.petData = petData.map((pet) => (
                 {
-                    ...pet,
+                    _id: pet._id,
+                    petName: pet.petName,
+                    petType: pet.petType,
+                    petDoB: pet.petDoB,
+                    petGender: pet.petGender,
                     years: calculateYears(pet.petDoB),
                     months: calculateMonths(pet.petDoB),
                     weeks: calculateWeeks(pet.petDoB),
                     days: calculateDays(pet.petDoB),
-                    petPfp: encodePetPfp(pet.petPfp),
-                    petPfpUrl: profile_image
+                    petPfp: pet.petPfp ? pet.petPfp.data.toString('base64') : null
                 }));
 
             return next();
