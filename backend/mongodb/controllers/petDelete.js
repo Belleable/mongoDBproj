@@ -9,7 +9,7 @@ export const petDelete = async (req, res, next) => {
 
         if (deletedPet) {
             console.log("Delete pet success");
-            next();
+            res.json({ status: "success", success: "Delete Success"});
         } else {
             console.log(`Pet with ID ${petId} not found`);
             res.status(404).json({ error: "Pet not found" });
