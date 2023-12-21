@@ -6,15 +6,19 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 const EditUser = () => {
     const { petid } = useParams();
+    const [user, setUser] = useState([]);
 
     const navigate = useNavigate()
     const location = useLocation()
     axios.defaults.withCredentials = true;
 
-    //const userId = location.pathname.split("/")[2]
-
     const handleChange =  (e) => {
-         setUser({ ...user, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        
+        setUser({
+            ...user,
+            [name]: value,
+        });
     };
 
     useEffect(() => {
@@ -28,22 +32,24 @@ const EditUser = () => {
         };
 
         fetchUserData();
-    });
+    }, []);
 
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
-
-        if (user.pw !== user.conf_pw) {
-            alert('Password and confirm password do not match. Please try again.');
-            return;
+        console.log(user)
+        let data = {
+            fname: user.fname,
+            lname: user.lname,
+            email: user.email,
+            phone: user.phone,
         }
 
         try {
-            const resEdit = await axios.put(`http://localhost:3009/userprofile/edit`, user); // Replace with your API endpoint
+            const resEdit = await axios.post(`http://localhost:3009/userprofile/edit`, data);
             if (resEdit.data.status === "success") {
                 alert(resEdit.data.success);
-                navigate(`/petprofile/${petid}`)
+                navigate(`/userprofile`)
             } else {
                 alert(resEdit.data.error);
             }
@@ -53,20 +59,9 @@ const EditUser = () => {
     };
 
     const handleClick = async (e) => {
-        navigate("/profile")
+        navigate("/userprofile")
     }
 
-    const [user, setUser] = useState({
-        pfp: '',
-        fname: '',
-        lname: '',
-        email: '',
-        phone: '',
-        pw: '',
-        conf_pw: '',
-    });
-
-    console.log(user);
 
     return (
         <div className="EditUser">
@@ -91,17 +86,13 @@ const EditUser = () => {
                         
                         <div class="textinfo">
                             <label for="fname">First Name</label>
-                            <input id="fname" type="text" value={user.fname} onChange={handleChange} name="fname"/>
+                            <input name='fname' id="fname" type="text" value={user.fname} onChange={handleChange}/>
                             <label for="lname">Last Name</label>
-                            <input id="lName" type="text" value={user.lname} onChange={handleChange} name="lname"/>
+                            <input name='lname' id="lName" type="text" value={user.lname} onChange={handleChange}/>
                             <label for="email">Email</label>
-                            <input id="email" type="text" value={user.email} onChange={handleChange} />
+                            <input name='email' id="email" type="email" value={user.email} onChange={handleChange} />
                             <label for="phone">Phone Number</label>
-                            <input id="phone" type="tel" value={user.phone} onChange={handleChange} />
-                            <label for="pw">Password</label>
-                            <input id="pw" type="text" value={user.pw} onInput={handleChange} />
-                            <label for="conf_pw">Confirm password</label>
-                            <input id="conf_pw" type="text" value={user.conf_pw} onInput={handleChange} />
+                            <input name='phone' id="phone" type="tel" value={user.phone} onChange={handleChange} />
                         </div>
 
                         <div class="CancelAndSubmit">
